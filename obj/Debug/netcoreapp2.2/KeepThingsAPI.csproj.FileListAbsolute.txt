@@ -1,0 +1,14 @@
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.csprojAssemblyReference.cache
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.csproj.CoreCompileInputs.cache
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorAssemblyInfo.cache
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorAssemblyInfo.cs
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.AssemblyInfoInputs.cache
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.AssemblyInfo.cs
+/Users/nils/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.deps.json
+/Users/nils/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.runtimeconfig.json
+/Users/nils/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.runtimeconfig.dev.json
+/Users/nils/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.dll
+/Users/nils/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.pdb
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorTargetAssemblyInfo.cache
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.dll
+/Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.pdb
