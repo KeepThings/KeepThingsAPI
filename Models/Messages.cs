@@ -6,6 +6,6 @@ namespace KeepThingsAPI.Models{
         public int RECEIVER_ID {get;set;}
         public string HEADER {get;set;}
         public string MESSAGE {get;set;}
-        public int TIMESTAMP {get;set;}
+        public string TIMESTAMP {get;set;}
     }
 }
