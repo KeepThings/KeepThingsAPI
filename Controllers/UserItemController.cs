@@ -21,7 +21,7 @@ namespace KeepThingsAPI.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.UserItems.Add(new UserItem { ITEM_ID = 0,  ITEM_NAME = "Stuhl", ITEM_DEC = "Es ist ein Stuhl", USER_ID = "1", BORROWER = "Lukas", DATE_FROM =  "12:12:12", DATE_TO = "12:12:12"});
+                _context.UserItems.Add(new UserItem { ITEM_ID = 0,  ITEM_NAME = "Stuhl", ITEM_DEC = "Es ist ein Stuhl", USER_ID = "1", BORROWER = "Lukas", DATE_FROM =  "2019-04-04", DATE_TO = "2019-04-04"});
                 _context.SaveChanges();
             }
         }

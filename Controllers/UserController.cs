@@ -21,7 +21,10 @@ namespace KeepThingsAPI.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Users.Add(new User { ID = 1,  NAME = "Braun", FIRST_NAME = "Nils", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { ID = 0,  NAME = "Braun", FIRST_NAME = "Nils", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { ID = 1,  NAME = "Goebl", FIRST_NAME = "Lukas", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { ID = 2,  NAME = "Nie", FIRST_NAME = "Nico", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { ID = 3,  NAME = "Jchong", FIRST_NAME = "Ching", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
                 _context.SaveChanges();
             }
         }

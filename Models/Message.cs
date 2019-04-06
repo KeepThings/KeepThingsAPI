@@ -1,5 +1,5 @@
 namespace KeepThingsAPI.Models{
-    public class Messages
+    public class Message
     {
         public int MESSAGE_ID {get;set;}
         public int SENDER_ID {get;set;}

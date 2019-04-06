@@ -9,11 +9,11 @@ namespace KeepThingsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MessagesController : ControllerBase
+    public class MessageController : ControllerBase
     {
-        private readonly MessagesContext _context;
+        private readonly MessageContext _context;
 
-        public MessagesController(MessagesContext context)
+        public MessageController(MessageContext context)
         {
             _context = context;
 
@@ -21,20 +21,20 @@ namespace KeepThingsAPI.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Messages.Add(new Messages { MESSAGE_ID = 0, SENDER_ID = 0, RECEIVER_ID = 1, HEADER = "Super wichtige Nachricht", MESSAGE = "Wie geht es ihnen den heute ?", TIMESTAMP = "12:12:12" });
+                _context.Messages.Add(new Message { MESSAGE_ID = 0, SENDER_ID = 0, RECEIVER_ID = 1, HEADER = "Super wichtige Nachricht", MESSAGE = "Wie geht es ihnen den heute ?", TIMESTAMP = "12:12:12" });
                 _context.SaveChanges();
             }
         }
         // GET: api/Todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Messages>>> GetMessages()
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
             return await _context.Messages.ToListAsync();
         }
 
         // GET: api/Todo/5
         [HttpGet("{MESSAGE_ID}")]
-        public async Task<ActionResult<Messages>> GetMessage(int id)
+        public async Task<ActionResult<Message>> GetMessage(int id)
         {
             var Message = await _context.Messages.FindAsync(id);
 
