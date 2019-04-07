@@ -10,10 +10,6 @@ namespace KeepThingsAPI.Models
         }
 
         public DbSet<UserItem> UserItems { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<UserItem>().HasKey(user => user.ITEM_ID);
-            base.OnModelCreating(modelBuilder);
-        }
+       
     }
 }

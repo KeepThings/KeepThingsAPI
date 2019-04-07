@@ -21,7 +21,7 @@ namespace KeepThingsAPI.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Messages.Add(new Message { MESSAGE_ID = 0, SENDER_ID = 0, RECEIVER_ID = 1, HEADER = "Super wichtige Nachricht", MESSAGE = "Wie geht es ihnen den heute ?", TIMESTAMP = "12:12:12" });
+                _context.Messages.Add(new Message { ID = 0, SENDER_ID = 0, RECEIVER_ID = 1, HEADER = "Super wichtige Nachricht", MESSAGE = "Wie geht es ihnen den heute ?", TIMESTAMP = "12:12:12" });
                 _context.SaveChanges();
             }
         }
@@ -33,7 +33,7 @@ namespace KeepThingsAPI.Controllers
         }
 
         // GET: api/Todo/5
-        [HttpGet("{MESSAGE_ID}")]
+        [HttpGet("{ID}")]
         public async Task<ActionResult<Message>> GetMessage(int id)
         {
             var Message = await _context.Messages.FindAsync(id);
@@ -44,6 +44,42 @@ namespace KeepThingsAPI.Controllers
             }
 
             return Message;
+        }
+        [HttpPost]
+        public async Task<ActionResult<Message>> PostMessage(Message message)
+        {
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetMessage), new { id = message.ID }, message);
+        }
+        [HttpPut("{ID}")]
+        public async Task<IActionResult> PutMessage(long id, Message message)
+        {
+            if (id != message.ID)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(message).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        [HttpDelete("{ID}")]
+        public async Task<IActionResult> DeleteTodoItem(long id)
+        {
+            var message = await _context.Messages.FindAsync(id);
+
+            if (message == null)
+            {
+                return NotFound();
+            }
+
+            _context.Messages.Remove(message);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

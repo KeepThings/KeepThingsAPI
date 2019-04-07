@@ -21,29 +21,66 @@ namespace KeepThingsAPI.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.UserItems.Add(new UserItem { ITEM_ID = 0,  ITEM_NAME = "Stuhl", ITEM_DEC = "Es ist ein Stuhl", USER_ID = "1", BORROWER = "Lukas", DATE_FROM =  "2019-04-04", DATE_TO = "2019-04-04"});
+                _context.UserItems.Add(new UserItem { ID = 0,  ITEM_NAME = "Stuhl", ITEM_DEC = "Es ist ein Stuhl", USER_ID = "1", BORROWER = "Lukas", DATE_FROM =  "2019-04-04", DATE_TO = "2019-04-04"});
                 _context.SaveChanges();
             }
         }
         // GET: api/Todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserItem>>> GetUserItems()
+        public async Task<ActionResult<IEnumerable<UserItem>>> GetUserItem()
         {
             return await _context.UserItems.ToListAsync();
         }
 
         // GET: api/Todo/5
-        [HttpGet("{ITEM_ID}")]
+        [HttpGet("{ID}")]
         public async Task<ActionResult<UserItem>> GetUserItem(int id)
         {
-            var userItem = await _context.UserItems.FindAsync(id);
+            var useritemItem = await _context.UserItems.FindAsync(id);
 
-            if (userItem == null)
+            if (useritemItem == null)
             {
                 return NotFound();
             }
 
-            return userItem;
+            return useritemItem;
         }
+        [HttpPost]
+        public async Task<ActionResult<UserItem>> PostUserItem(UserItem useritem)
+        {
+            _context.UserItems.Add(useritem);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUserItem), new { id = useritem.ID }, useritem);
+        }
+        [HttpPut("{ID}")]
+        public async Task<IActionResult> PutUserItem(long id, UserItem useritem)
+        {
+            if (id != useritem.ID)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(useritem).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        [HttpDelete("{ID}")]
+        public async Task<IActionResult> DeleteTodoItem(long id)
+        {
+            var useritem = await _context.UserItems.FindAsync(id);
+
+            if (useritem == null)
+            {
+                return NotFound();
+            }
+
+            _context.UserItems.Remove(useritem);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
     }
 }
