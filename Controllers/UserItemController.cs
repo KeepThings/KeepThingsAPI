@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,21 +18,16 @@ namespace KeepThingsAPI.Controllers
             _context = context;
 
             if (_context.UserItems.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.UserItems.Add(new UserItem { ID = 0,  ITEM_NAME = "Stuhl", ITEM_DEC = "Es ist ein Stuhl", USER_ID = "1", BORROWER = "Lukas", DATE_FROM =  "2019-04-04", DATE_TO = "2019-04-04"});
+            {   
                 _context.SaveChanges();
             }
         }
-        // GET: api/Todo
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserItem>>> GetUserItem()
         {
             return await _context.UserItems.ToListAsync();
         }
 
-        // GET: api/Todo/5
         [HttpGet("{ID}")]
         public async Task<ActionResult<UserItem>> GetUserItem(int id)
         {
@@ -54,7 +49,7 @@ namespace KeepThingsAPI.Controllers
             return CreatedAtAction(nameof(GetUserItem), new { id = useritem.ID }, useritem);
         }
         [HttpPut("{ID}")]
-        public async Task<IActionResult> PutUserItem(long id, UserItem useritem)
+        public async Task<IActionResult> PutUserItem(int id, UserItem useritem)
         {
             if (id != useritem.ID)
             {
@@ -67,7 +62,7 @@ namespace KeepThingsAPI.Controllers
             return NoContent();
         }
         [HttpDelete("{ID}")]
-        public async Task<IActionResult> DeleteTodoItem(long id)
+        public async Task<IActionResult> DeleteTodoItem(int id)
         {
             var useritem = await _context.UserItems.FindAsync(id);
 

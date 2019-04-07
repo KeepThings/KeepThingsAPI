@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,20 +19,16 @@ namespace KeepThingsAPI.Controllers
 
             if (_context.Messages.Count() == 0)
             {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Messages.Add(new Message { ID = 0, SENDER_ID = 0, RECEIVER_ID = 1, HEADER = "Super wichtige Nachricht", MESSAGE = "Wie geht es ihnen den heute ?", TIMESTAMP = "12:12:12" });
                 _context.SaveChanges();
             }
         }
-        // GET: api/Todo
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
             return await _context.Messages.ToListAsync();
         }
 
-        // GET: api/Todo/5
         [HttpGet("{ID}")]
         public async Task<ActionResult<Message>> GetMessage(int id)
         {
@@ -54,7 +50,7 @@ namespace KeepThingsAPI.Controllers
             return CreatedAtAction(nameof(GetMessage), new { id = message.ID }, message);
         }
         [HttpPut("{ID}")]
-        public async Task<IActionResult> PutMessage(long id, Message message)
+        public async Task<IActionResult> PutMessage(int id, Message message)
         {
             if (id != message.ID)
             {
@@ -67,7 +63,7 @@ namespace KeepThingsAPI.Controllers
             return NoContent();
         }
         [HttpDelete("{ID}")]
-        public async Task<IActionResult> DeleteTodoItem(long id)
+        public async Task<IActionResult> DeleteTodoItem(int id)
         {
             var message = await _context.Messages.FindAsync(id);
 
