@@ -12,17 +12,17 @@
 /Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorTargetAssemblyInfo.cache
 /Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.dll
 /Users/nils/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.pdb
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.csprojAssemblyReference.cache
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.csproj.CoreCompileInputs.cache
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.RazorAssemblyInfo.cache
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.RazorAssemblyInfo.cs
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.AssemblyInfoInputs.cache
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.AssemblyInfo.cs
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.dll
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.pdb
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.deps.json
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.runtimeconfig.json
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.runtimeconfig.dev.json
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.dll
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.pdb
-D:\syncplicity\Z003S17K\Documents\Visual Code\Projects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.RazorTargetAssemblyInfo.cache
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.csprojAssemblyReference.cache
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.csproj.CoreCompileInputs.cache
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorAssemblyInfo.cache
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorAssemblyInfo.cs
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.AssemblyInfoInputs.cache
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.AssemblyInfo.cs
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.dll
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.pdb
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.deps.json
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.runtimeconfig.json
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.runtimeconfig.dev.json
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.dll
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/bin/Debug/netcoreapp2.2/KeepThingsAPI.pdb
+D:/syncplicity/Z003S17K/Documents/Visual Code/Projects/KeepThingsAPI/obj/Debug/netcoreapp2.2/KeepThingsAPI.RazorTargetAssemblyInfo.cache

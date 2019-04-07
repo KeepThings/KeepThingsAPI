@@ -30,7 +30,7 @@ namespace KeepThingsAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("UserList"));
-            services.AddDbContext<MessagesContext>(opt => opt.UseInMemoryDatabase("MessageList"));
+            services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("MessageList"));
             services.AddDbContext<UserItemContext>(opt => opt.UseInMemoryDatabase("UserItemList"));
             services.AddDbContext<MarketplaceItemContext>(opt => opt.UseInMemoryDatabase("MarketplaceItemList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -10,5 +10,11 @@ namespace KeepThingsAPI.Models
         }
 
         public DbSet<User> Users { get; set; }
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasKey(user => user.USER_ID);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

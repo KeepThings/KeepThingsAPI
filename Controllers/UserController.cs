@@ -21,25 +21,25 @@ namespace KeepThingsAPI.Controllers
             {
                 // Create a new TodoItem if collection is empty,
                 // which means you can't delete all TodoItems.
-                _context.Users.Add(new User { ID = 0,  NAME = "Braun", FIRST_NAME = "Nils", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
-                _context.Users.Add(new User { ID = 1,  NAME = "Goebl", FIRST_NAME = "Lukas", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
-                _context.Users.Add(new User { ID = 2,  NAME = "Nie", FIRST_NAME = "Nico", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
-                _context.Users.Add(new User { ID = 3,  NAME = "Jchong", FIRST_NAME = "Ching", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { USER_ID = 0,  NAME = "Braun", FIRST_NAME = "Nils", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { USER_ID = 1,  NAME = "Goebl", FIRST_NAME = "Lukas", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { USER_ID = 2,  NAME = "Nie", FIRST_NAME = "Nico", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
+                _context.Users.Add(new User { USER_ID = 3,  NAME = "Jchong", FIRST_NAME = "Ching", PASSWORD = "", EMAIL = "", USERNAME =  "", TEL_NR = 12, VERIFIED = true, TYPE = ""});
                 _context.SaveChanges();
             }
         }
         // GET: api/Todo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetTodoItems()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
         // GET: api/Todo/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetTodoItem(int id)
+        [HttpGet("{USER_ID}")]
+        public async Task<ActionResult<User>> GetUsers(int ITEM_ID)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(ITEM_ID);
 
             if (user == null)
             {
