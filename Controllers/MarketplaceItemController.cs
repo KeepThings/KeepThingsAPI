@@ -11,9 +11,9 @@ namespace KeepThingsAPI.Controllers
     [ApiController]
     public class MarketplaceItemController : ControllerBase
     {
-        private readonly MarketplaceItemContext _context;
+        private readonly KTDBContext _context;
 
-        public MarketplaceItemController(MarketplaceItemContext context)
+        public MarketplaceItemController(KTDBContext context)
         {
             _context = context;
 

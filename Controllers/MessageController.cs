@@ -11,9 +11,9 @@ namespace KeepThingsAPI.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly MessageContext _context;
+        private readonly KTDBContext _context;
 
-        public MessageController(MessageContext context)
+        public MessageController(KTDBContext context)
         {
             _context = context;
 

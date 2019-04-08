@@ -29,10 +29,7 @@ namespace KeepThingsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("UserList"));
-            services.AddDbContext<MessageContext>(opt => opt.UseInMemoryDatabase("MessageList"));
-            services.AddDbContext<UserItemContext>(opt => opt.UseInMemoryDatabase("UserItemList"));
-            services.AddDbContext<MarketplaceItemContext>(opt => opt.UseInMemoryDatabase("MarketplaceItemList"));
+            services.AddDbContext<KTDBContext>(opt => opt.UseInMemoryDatabase("DataList"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

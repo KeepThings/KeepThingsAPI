@@ -11,9 +11,9 @@ namespace KeepThingsAPI.Controllers
     [ApiController]
     public class UserItemController : ControllerBase
     {
-        private readonly UserItemContext _context;
+        private readonly KTDBContext _context;
 
-        public UserItemController(UserItemContext context)
+        public UserItemController(KTDBContext context)
         {
             _context = context;
 
