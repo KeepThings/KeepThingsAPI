@@ -12072,29 +12072,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Z003S17K\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\goebl\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\syncplicity\\Z003S17K\\Documents\\Visual Code\\Projects\\KeepThingsAPI\\KeepThingsAPI.csproj",
+      "projectUniqueName": "D:\\Dokumente\\VisualCodePojects\\KeepThingsAPI\\KeepThingsAPI.csproj",
       "projectName": "KeepThingsAPI",
-      "projectPath": "D:\\syncplicity\\Z003S17K\\Documents\\Visual Code\\Projects\\KeepThingsAPI\\KeepThingsAPI.csproj",
-      "packagesPath": "C:\\Users\\Z003S17K\\.nuget\\packages\\",
-      "outputPath": "D:\\syncplicity\\Z003S17K\\Documents\\Visual Code\\Projects\\KeepThingsAPI\\obj\\",
+      "projectPath": "D:\\Dokumente\\VisualCodePojects\\KeepThingsAPI\\KeepThingsAPI.csproj",
+      "packagesPath": "C:\\Users\\goebl\\.nuget\\packages\\",
+      "outputPath": "D:\\Dokumente\\VisualCodePojects\\KeepThingsAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Z003S17K\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\goebl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Users\\Z003S17K\\Downloads": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
