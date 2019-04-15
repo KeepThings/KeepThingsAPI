@@ -39,7 +39,6 @@ namespace JWTwebAPI.Controllers
                 var usernameAndPass = usernameAndPassenc.Split(":");
                 //check in DB username and pass exist!
                 
-                //var users = _context.Users.ToListAsync();
                 
                 if (usernameAndPass[0] == "Admin" && usernameAndPass[1] == "pass")
                 {
