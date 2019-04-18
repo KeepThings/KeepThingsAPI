@@ -31,7 +31,7 @@ namespace KeepThingsAPI.Controllers
             return await _context.Messages.ToListAsync();
         }
 
-        [HttpGet("{ID}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Message>> GetMessage(int id)
         {
             var Message = await _context.Messages.FindAsync(id);
@@ -49,12 +49,12 @@ namespace KeepThingsAPI.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMessage), new { id = message.ID }, message);
+            return CreatedAtAction(nameof(GetMessage), new { id = message.id }, message);
         }
-        [HttpPut("{ID}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutMessage(int id, Message message)
         {
-            if (id != message.ID)
+            if (id != message.id)
             {
                 return BadRequest();
             }
@@ -64,7 +64,7 @@ namespace KeepThingsAPI.Controllers
 
             return NoContent();
         }
-        [HttpDelete("{ID}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodoItem(int id)
         {
             var message = await _context.Messages.FindAsync(id);

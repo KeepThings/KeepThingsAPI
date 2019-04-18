@@ -31,7 +31,7 @@ namespace KeepThingsAPI.Controllers
             return await _context.MarketplaceItems.ToListAsync();
         }
 
-        [HttpGet("{ID}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<MarketplaceItem>> GetMarketplaceItem(int id)
         {
             var MarketplaceItem = await _context.MarketplaceItems.FindAsync(id);
@@ -49,12 +49,12 @@ namespace KeepThingsAPI.Controllers
             _context.MarketplaceItems.Add(marketplaceItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetMarketplaceItem), new { id = marketplaceItem.ID }, marketplaceItem);
+            return CreatedAtAction(nameof(GetMarketplaceItem), new { id = marketplaceItem.id }, marketplaceItem);
         }
-        [HttpPut("{ID}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutMarketplaceItem(int id, MarketplaceItem marketplaceItem)
         {
-            if (id != marketplaceItem.ID)
+            if (id != marketplaceItem.id)
             {
                 return BadRequest();
             }
@@ -64,7 +64,7 @@ namespace KeepThingsAPI.Controllers
 
             return NoContent();
         }
-        [HttpDelete("{ID}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodoItem(int id)
         {
             var marketplaceItem = await _context.MarketplaceItems.FindAsync(id);
