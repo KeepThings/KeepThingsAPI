@@ -13,6 +13,7 @@ namespace KeepThingsAPI.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserItem> UserItems { get; set; }
+        public DbSet<Chat> Chat { get; set; }
 
     }
 }
