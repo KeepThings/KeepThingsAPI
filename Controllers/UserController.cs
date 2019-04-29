@@ -34,7 +34,7 @@ namespace KeepThingsAPI.Controllers
             return sql.User_getUsers();
         }
         [HttpGet("{id}")]
-        public string GetUser(int id)
+        public string GetUser(string id)
         {
             return sql.User_getUser(id);
         }

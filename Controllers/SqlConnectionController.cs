@@ -22,10 +22,10 @@ namespace KeepThingsAPI.Controllers
             this.cnn = new MySqlConnection(connectionString);
         }
         #region User
-        public string User_getUser(int id)
+        public string User_getUser(string id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "SELECT * FROM user Where user_ID = " + id;
+            string query = "SELECT * FROM user Where Auth0_ID = '" + id + "'";;
             MySqlCommand command = new MySqlCommand(query, cnn);
             User user = new User();
             cnn.Open();
@@ -34,7 +34,7 @@ namespace KeepThingsAPI.Controllers
             if (!reader.HasRows) return null;
             while (reader.Read())
             {
-                user.user_id = reader.GetInt32(0);
+                user.id = reader.GetInt32(0);
                 user.Auth0_id = reader.GetString(1);
                 user.name = reader.GetString(2);
                 user.first_name = reader.GetString(3);
@@ -61,7 +61,7 @@ namespace KeepThingsAPI.Controllers
             while (reader.Read())
             {
                 User user = new User();
-                user.user_id = reader.GetInt32(0);
+                user.id = reader.GetInt32(0);
                 user.Auth0_id = reader.GetString(1);
                 user.name = reader.GetString(2);
                 user.first_name = reader.GetString(3);
@@ -87,13 +87,13 @@ namespace KeepThingsAPI.Controllers
             try
             {
                 command.ExecuteNonQuery();
-                command = new MySqlCommand("SELECT * FROM user WHERE user_ID = LAST_INSERT_ID()", cnn);
+                command = new MySqlCommand("SELECT * FROM user WHERE id = LAST_INSERT_ID()", cnn);
                 user = new User();
                 if (cnn.State == System.Data.ConnectionState.Closed) cnn.Open();
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    user.user_id = reader.GetInt32(0);
+                    user.id = reader.GetInt32(0);
                     user.Auth0_id = reader.GetString(1);
                     user.name = reader.GetString(2);
                     user.first_name = reader.GetString(3);
@@ -119,7 +119,7 @@ namespace KeepThingsAPI.Controllers
         public string User_deleteUser(int id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "DELETE FROM user WHERE user_ID = " + id;
+            string query = "DELETE FROM user WHERE id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
             try
@@ -141,20 +141,20 @@ namespace KeepThingsAPI.Controllers
         public String UserItem_getUserItem(int id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "SELECT * FROM user_items Where item_ID = " + id;
+            string query = "SELECT * FROM user_items Where id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             UserItem userItem = new UserItem();
             if (cnn.State == System.Data.ConnectionState.Closed) cnn.Open();
             reader = command.ExecuteReader();
             while (reader.Read())
             {
-                userItem.item_id = reader.GetInt32(0);
+                userItem.id = reader.GetInt32(0);
                 userItem.item_name = reader.GetString(1);
                 userItem.item_desc = reader.GetString(2);
                 userItem.user_id = reader.GetInt32(3);
                 userItem.borrower = reader.GetString(4);
-                userItem.date_from = reader.GetMySqlDateTime(5) + "";
-                userItem.date_to = reader.GetMySqlDateTime(6) + "";
+                userItem.date_from = reader.GetString(5);
+                userItem.date_to = reader.GetString(6);
             }
             var json = JsonConvert.SerializeObject(userItem);
             cnn.Close();
@@ -172,7 +172,7 @@ namespace KeepThingsAPI.Controllers
             while (reader.Read())
             {
                 UserItem userItem = new UserItem();
-                userItem.item_id = reader.GetInt32(0);
+                userItem.id = reader.GetInt32(0);
                 userItem.item_name = reader.GetString(1);
                 userItem.item_desc = reader.GetString(2);
                 userItem.user_id = reader.GetInt32(3);
@@ -195,18 +195,18 @@ namespace KeepThingsAPI.Controllers
             try
             {
                 command.ExecuteNonQuery();
-                command = new MySqlCommand("SELECT * FROM user_items WHERE item_ID = LAST_INSERT_ID()", cnn);
+                command = new MySqlCommand("SELECT * FROM user_items WHERE id = LAST_INSERT_ID()", cnn);
                 userItem = new UserItem();
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    userItem.item_id = reader.GetInt32(0);
+                    userItem.id = reader.GetInt32(0);
                     userItem.item_name = reader.GetString(1);
                     userItem.item_desc = reader.GetString(2);
                     userItem.user_id = reader.GetInt32(3);
                     userItem.borrower = reader.GetString(4);
-                    userItem.date_from = reader.GetMySqlDateTime(5) + "";
-                    userItem.date_to = reader.GetMySqlDateTime(6) + "";
+                    userItem.date_from = reader.GetString(5);
+                    userItem.date_to = reader.GetString(6);
                 }
                 var json = JsonConvert.SerializeObject(userItem);
                 return json.ToString();
@@ -223,7 +223,7 @@ namespace KeepThingsAPI.Controllers
         public string UserItem_deleteUserItem(int id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "DELETE FROM user_items WHERE item_ID = " + id;
+            string query = "DELETE FROM user_items WHERE id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
             try
@@ -245,14 +245,14 @@ namespace KeepThingsAPI.Controllers
         public String MarketplaceItem_getMarketplaceItem(int id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "SELECT * FROM marketplace_items Where item_ID = " + id;
+            string query = "SELECT * FROM marketplace_items Where id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             MarketplaceItem marketplaceItem = new MarketplaceItem();
             if (cnn.State == System.Data.ConnectionState.Closed) cnn.Open();
             reader = command.ExecuteReader();
             while (reader.Read())
             {
-                marketplaceItem.item_id = reader.GetInt32(0);
+                marketplaceItem.id = reader.GetInt32(0);
                 marketplaceItem.item_name = reader.GetString(1);
                 marketplaceItem.item_desc = reader.GetString(2);
                 marketplaceItem.user_id = reader.GetInt32(3);
@@ -276,7 +276,7 @@ namespace KeepThingsAPI.Controllers
             while (reader.Read())
             {
                 MarketplaceItem marketplaceItem = new MarketplaceItem();
-                marketplaceItem.item_id = reader.GetInt32(0);
+                marketplaceItem.id = reader.GetInt32(0);
                 marketplaceItem.item_name = reader.GetString(1);
                 marketplaceItem.item_desc = reader.GetString(2);
                 marketplaceItem.user_id = reader.GetInt32(3);
@@ -299,12 +299,12 @@ namespace KeepThingsAPI.Controllers
             try
             {
                 command.ExecuteNonQuery();
-                command = new MySqlCommand("SELECT * FROM marketplace_items WHERE item_ID = LAST_INSERT_ID()", cnn);
+                command = new MySqlCommand("SELECT * FROM marketplace_items WHERE id = LAST_INSERT_ID()", cnn);
                 marketplaceItem = new MarketplaceItem();
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    marketplaceItem.item_id = reader.GetInt32(0);
+                    marketplaceItem.id = reader.GetInt32(0);
                     marketplaceItem.item_name = reader.GetString(1);
                     marketplaceItem.item_desc = reader.GetString(2);
                     marketplaceItem.user_id = reader.GetInt32(3);
@@ -327,7 +327,7 @@ namespace KeepThingsAPI.Controllers
         public string MarketplaceItem_deleteMarketplaceItem(int id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "DELETE FROM marketplace_items WHERE item_ID = " + id;
+            string query = "DELETE FROM marketplace_items WHERE id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
             try
@@ -436,7 +436,7 @@ namespace KeepThingsAPI.Controllers
             while (reader.Read())
             {
                 Chat chat = new Chat();
-                chat.chat_id = reader.GetInt32(0);
+                chat.id = reader.GetInt32(0);
                 chat.sender_id = reader.GetInt32(1);
                 chat.receiver_id = reader.GetInt32(2);
                 chat.topic = reader.GetString(3); ;
@@ -456,12 +456,12 @@ namespace KeepThingsAPI.Controllers
             try
             {
                 command.ExecuteNonQuery();
-                command = new MySqlCommand("SELECT * FROM chat WHERE chat_ID = LAST_INSERT_ID()", cnn);
+                command = new MySqlCommand("SELECT * FROM chat WHERE id = LAST_INSERT_ID()", cnn);
                 chat = new Chat();
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    chat.chat_id = reader.GetInt32(0);
+                    chat.id = reader.GetInt32(0);
                     chat.sender_id = reader.GetInt32(1);
                     chat.receiver_id = reader.GetInt32(2);
                     chat.topic = reader.GetString(3);
@@ -481,7 +481,7 @@ namespace KeepThingsAPI.Controllers
         public string Chat_deleteChat(int id)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "DELETE FROM chat WHERE chat_ID = " + id;
+            string query = "DELETE FROM chat WHERE id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
             try

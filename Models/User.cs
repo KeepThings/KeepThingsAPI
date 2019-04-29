@@ -1,7 +1,7 @@
 namespace KeepThingsAPI.Models {
     public class User
     {
-        public int user_id { get; set; }
+        public int id { get; set; }
         public string Auth0_id { get; set; }
         public string name { get; set; }
         public string first_name { get; set; }
