@@ -49,6 +49,33 @@ namespace KeepThingsAPI.Controllers
             cnn.Close();
             return json.ToString();
         }
+        public string User_getSpecificUser(int id)
+        {
+            if (cnn == null) InitSqlConnection();
+            string query = "SELECT * FROM user Where id = " + id;
+            MySqlCommand command = new MySqlCommand(query, cnn);
+            User user = new User();
+            cnn.Open();
+
+            reader = command.ExecuteReader();
+            if (!reader.HasRows) return null;
+            while (reader.Read())
+            {
+                user.id = reader.GetInt32(0);
+                user.Auth0_id = reader.GetString(1);
+                user.name = reader.GetString(2);
+                user.first_name = reader.GetString(3);
+                user.password = reader.GetString(4);
+                user.email = reader.GetString(5);
+                user.tel_nr = reader.GetString(6);
+                user.username = reader.GetString(7);
+                user.type = reader.GetString(8);
+                user.verified = reader.GetBoolean(9);
+            }
+            var json = JsonConvert.SerializeObject(user);
+            cnn.Close();
+            return json.ToString();
+        }
         public string User_getUsers()
         {
             if (cnn == null) InitSqlConnection();
@@ -197,8 +224,8 @@ namespace KeepThingsAPI.Controllers
                 userItem.item_desc = reader.GetString(2);
                 userItem.user_id = reader.GetInt32(3);
                 userItem.borrower = reader.GetString(4);
-                userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                userItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                userItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
             }
             var json = JsonConvert.SerializeObject(userItem);
             cnn.Close();
@@ -221,8 +248,8 @@ namespace KeepThingsAPI.Controllers
                 userItem.item_desc = reader.GetString(2);
                 userItem.user_id = reader.GetInt32(3);
                 userItem.borrower = reader.GetString(4);
-                userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                userItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                userItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
                 userItems.Add(userItem);
             }
             var json = JsonConvert.SerializeObject(userItems);
@@ -249,8 +276,8 @@ namespace KeepThingsAPI.Controllers
                     userItem.item_desc = reader.GetString(2);
                     userItem.user_id = reader.GetInt32(3);
                     userItem.borrower = reader.GetString(4);
-                    userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                    userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                    userItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                    userItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
                 }
                 var json = JsonConvert.SerializeObject(userItem);
                 return json.ToString();
@@ -285,8 +312,8 @@ namespace KeepThingsAPI.Controllers
                     userItem.item_desc = reader.GetString(2);
                     userItem.user_id = reader.GetInt32(3);
                     userItem.borrower = reader.GetString(4);
-                    userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                    userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                    userItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                    userItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
                 }
                 var json = JsonConvert.SerializeObject(userItem);
                 return json.ToString();
@@ -341,8 +368,8 @@ namespace KeepThingsAPI.Controllers
                 marketplaceItem.item_desc = reader.GetString(2);
                 marketplaceItem.user_id = reader.GetInt32(3);
                 marketplaceItem.borrower = reader.GetString(4);
-                marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                marketplaceItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                marketplaceItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
             }
             var json = JsonConvert.SerializeObject(marketplaceItem);
             cnn.Close();
@@ -365,8 +392,8 @@ namespace KeepThingsAPI.Controllers
                 marketplaceItem.item_desc = reader.GetString(2);
                 marketplaceItem.user_id = reader.GetInt32(3);
                 marketplaceItem.borrower = reader.GetString(4);
-                marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                marketplaceItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                marketplaceItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
                 marketplaceItems.Add(marketplaceItem);
             }
             var json = JsonConvert.SerializeObject(marketplaceItems);
@@ -393,8 +420,8 @@ namespace KeepThingsAPI.Controllers
                     marketplaceItem.item_desc = reader.GetString(2);
                     marketplaceItem.user_id = reader.GetInt32(3);
                     marketplaceItem.borrower = reader.GetString(4);
-                    marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                    marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                    marketplaceItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5));
+                    marketplaceItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
                 }
                 var json = JsonConvert.SerializeObject(marketplaceItem);
                 return json.ToString();
@@ -429,8 +456,8 @@ namespace KeepThingsAPI.Controllers
                     marketplaceItem.item_desc = reader.GetString(2);
                     marketplaceItem.user_id = reader.GetInt32(3);
                     marketplaceItem.borrower = reader.GetString(4);
-                    marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
-                    marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                    marketplaceItem.date_from = this.FormStringFromDateTime(reader.GetMySqlDateTime(5)); ;
+                    marketplaceItem.date_to = this.FormStringFromDateTime(reader.GetMySqlDateTime(6));
                 }
                 var json = JsonConvert.SerializeObject(marketplaceItem);
                 return json.ToString();
@@ -486,7 +513,7 @@ namespace KeepThingsAPI.Controllers
                 message.chat_id = reader.GetInt32(1);
                 message.message = reader.GetString(2);
                 message.sender_id = reader.GetInt32(3);
-                message.timestamp = reader.GetMySqlDateTime(4).Year + "-" + reader.GetMySqlDateTime(4).Month + "-" + reader.GetMySqlDateTime(4).Day + " " + reader.GetMySqlDateTime(4).Hour + ":" + reader.GetMySqlDateTime(4).Minute + ":" + reader.GetMySqlDateTime(4).Second;
+                message.timestamp = reader.GetInt64(4);
                 messages.Add(message);
             }
             var json = JsonConvert.SerializeObject(messages);
@@ -496,8 +523,8 @@ namespace KeepThingsAPI.Controllers
         public string Message_postMessages(Message message)
         {
             if (cnn == null) InitSqlConnection();
-            string query = "INSERT INTO messages (chat_ID,message,sender_ID) " +
-                "VALUES (" + message.chat_id + ",'" + message.message + "'," + message.sender_id + ");";
+            string query = "INSERT INTO messages (chat_ID,message,sender_ID,sent_timestamp) " +
+                "VALUES (" + message.chat_id + ",'" + message.message + "'," + message.sender_id + ", sent_timestamp = " + message.timestamp + "); ";
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
             try
@@ -512,7 +539,7 @@ namespace KeepThingsAPI.Controllers
                     message.chat_id = reader.GetInt32(1);
                     message.message = reader.GetString(2);
                     message.sender_id = reader.GetInt32(3);
-                    message.timestamp = reader.GetMySqlDateTime(4).Year + "-" + reader.GetMySqlDateTime(4).Month + "-" + reader.GetMySqlDateTime(4).Day + " " + reader.GetMySqlDateTime(4).Hour + ":" + reader.GetMySqlDateTime(4).Minute + ":" + reader.GetMySqlDateTime(4).Second;
+                    message.timestamp = reader.GetInt64(4);
                 }
                 var json = JsonConvert.SerializeObject(message);
                 return json.ToString();
@@ -530,7 +557,7 @@ namespace KeepThingsAPI.Controllers
         {
             if (cnn == null) InitSqlConnection();
             string query = "UPDATE messages " +
-                " SET chat_ID = " + message.chat_id + ",message = '" + message.message + "',sender_ID = " + message.sender_id + ", sent_timestamp = '" + message.timestamp + "'" + 
+                " SET chat_ID = " + message.chat_id + ",message = '" + message.message + "',sender_ID = " + message.sender_id + ", sent_timestamp = " + message.timestamp + 
                 " WHERE id = " + id;
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
@@ -546,7 +573,7 @@ namespace KeepThingsAPI.Controllers
                     message.chat_id = reader.GetInt32(1);
                     message.message = reader.GetString(2);
                     message.sender_id = reader.GetInt32(3);
-                    message.timestamp = reader.GetMySqlDateTime(4).Year + "-" + reader.GetMySqlDateTime(4).Month + "-" + reader.GetMySqlDateTime(4).Day + " " + reader.GetMySqlDateTime(4).Hour + ":" + reader.GetMySqlDateTime(4).Minute + ":" + reader.GetMySqlDateTime(4).Second;
+                    message.timestamp = reader.GetInt64(4);
                 }
                 var json = JsonConvert.SerializeObject(message);
                 return json.ToString();
@@ -694,6 +721,27 @@ namespace KeepThingsAPI.Controllers
             }
         }
         #endregion
+        private string FormStringFromDateTime(MySql.Data.Types.MySqlDateTime sqltime)
+        {
+            string time = sqltime.Year.ToString()+ "-";
+            if (sqltime.Month < 10)
+            {
+                time = time + "0" + sqltime.Month + "-";
+            }
+            else
+            {
+                time = time + sqltime.Month + "-";
+            }
+            if (sqltime.Day < 10)
+            {
+                time = time + "0" + sqltime.Day;
+            }
+            else
+            {
+                time = time + sqltime.Day;
+            }
+            return time;
+        }
     }
 
 }

@@ -5,6 +5,6 @@ namespace KeepThingsAPI.Models{
         public int chat_id { get; set; }      
         public string message {get;set;}
         public int sender_id { get; set; }
-        public string timestamp {get;set;}
+        public long timestamp {get;set;}
     }
 }
