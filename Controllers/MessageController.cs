@@ -40,6 +40,11 @@ namespace KeepThingsAPI.Controllers
         {
             return sql.Message_deleteMessage(id);
         }
+        [HttpPut("{id}")]
+        public string PutMessage(int id, Message message)
+        {
+            return sql.Message_putMessage(id, message);
+        }
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         //{

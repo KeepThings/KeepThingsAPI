@@ -46,6 +46,11 @@ namespace KeepThingsAPI.Controllers
         {
             return sql.UserItem_deleteUserItem(id);
         }
+        [HttpPut("{id}")]
+        public string PutUserItem(int id, UserItem userItem)
+        {
+            return sql.UserItem_putUserItem(id, userItem);
+        }
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<UserItem>>> GetUserItem()
         //{

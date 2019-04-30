@@ -45,6 +45,11 @@ namespace KeepThingsAPI.Controllers
         {
             return sql.MarketplaceItem_deleteMarketplaceItem(id);
         }
+        [HttpPut("{id}")]
+        public string PutMarketplaceItem(int id, MarketplaceItem marketplaceItem)
+        {
+            return sql.MarketplaceItem_putMarketplaceItem(id, marketplaceItem);
+        }
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<MarketplaceItem>>> GetMarketplaceItemss()
         //{

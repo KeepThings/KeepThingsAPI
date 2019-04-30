@@ -116,6 +116,46 @@ namespace KeepThingsAPI.Controllers
                 if (cnn.State == System.Data.ConnectionState.Open) cnn.Close();
             }
         }
+        public string User_putUser(string id, User user)
+        {
+            if (cnn == null) InitSqlConnection();
+            string query = "UPDATE user " +
+                " SET Auth0_ID = '" + user.Auth0_id + "', name = '" + user.name + "', first_name = '" + user.first_name + "', password = '" + user.password + "', email = '" + user.email + "',tel_nr = '" + user.tel_nr + "', username = '" + user.username + "', type = '" + user.type + "',verified = '" + user.verified + "'" +
+                " WHERE Auth0_ID = '" + id + "'";
+            MySqlCommand command = new MySqlCommand(query, cnn);
+            cnn.Open();
+            try
+            {
+                command.ExecuteNonQuery();
+                command = new MySqlCommand("SELECT * FROM user WHERE Auth0_ID = '" + user.Auth0_id + "'", cnn);
+                user = new User();
+                if (cnn.State == System.Data.ConnectionState.Closed) cnn.Open();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    user.id = reader.GetInt32(0);
+                    user.Auth0_id = reader.GetString(1);
+                    user.name = reader.GetString(2);
+                    user.first_name = reader.GetString(3);
+                    user.password = reader.GetString(4);
+                    user.email = reader.GetString(5);
+                    user.tel_nr = reader.GetString(6);
+                    user.username = reader.GetString(7);
+                    user.type = reader.GetString(8);
+                    user.verified = reader.GetBoolean(9);
+                }
+                var userJson = JsonConvert.SerializeObject(user);
+                return userJson.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Error with execuing the insert: " + ex.Message;
+            }
+            finally
+            {
+                if (cnn.State == System.Data.ConnectionState.Open) cnn.Close();
+            }
+        }
         public string User_deleteUser(int id)
         {
             if (cnn == null) InitSqlConnection();
@@ -137,6 +177,10 @@ namespace KeepThingsAPI.Controllers
             }
         }
         #endregion
+
+
+
+
         #region Useritem
         public String UserItem_getUserItem(int id)
         {
@@ -153,8 +197,8 @@ namespace KeepThingsAPI.Controllers
                 userItem.item_desc = reader.GetString(2);
                 userItem.user_id = reader.GetInt32(3);
                 userItem.borrower = reader.GetString(4);
-                userItem.date_from = reader.GetString(5);
-                userItem.date_to = reader.GetString(6);
+                userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
             }
             var json = JsonConvert.SerializeObject(userItem);
             cnn.Close();
@@ -177,8 +221,8 @@ namespace KeepThingsAPI.Controllers
                 userItem.item_desc = reader.GetString(2);
                 userItem.user_id = reader.GetInt32(3);
                 userItem.borrower = reader.GetString(4);
-                userItem.date_from = reader.GetMySqlDateTime(5)+"";
-                userItem.date_to = reader.GetMySqlDateTime(6)+"";
+                userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
                 userItems.Add(userItem);
             }
             var json = JsonConvert.SerializeObject(userItems);
@@ -205,8 +249,44 @@ namespace KeepThingsAPI.Controllers
                     userItem.item_desc = reader.GetString(2);
                     userItem.user_id = reader.GetInt32(3);
                     userItem.borrower = reader.GetString(4);
-                    userItem.date_from = reader.GetString(5);
-                    userItem.date_to = reader.GetString(6);
+                    userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                    userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                }
+                var json = JsonConvert.SerializeObject(userItem);
+                return json.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Error with execuing the insert: " + ex.Message;
+            }
+            finally
+            {
+                if (cnn.State == System.Data.ConnectionState.Open) cnn.Close();
+            }
+        }
+        public string UserItem_putUserItem(int id, UserItem userItem)
+        {
+            if (cnn == null) InitSqlConnection();
+            string query = "UPDATE user_items " +
+                " SET item_name = '" + userItem.item_name + "',item_desc = '" + userItem.item_desc + "',owner = " + userItem.user_id + ",borrower = '" + userItem.borrower + "',date_from = '" + userItem.date_from + "',date_to = '" + userItem.date_to + "' " +
+                " WHERE id = " + id;
+            MySqlCommand command = new MySqlCommand(query, cnn);
+            cnn.Open();
+            try
+            {
+                command.ExecuteNonQuery();
+                command = new MySqlCommand("SELECT * FROM user_items WHERE id = " + id, cnn);
+                userItem = new UserItem();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    userItem.id = reader.GetInt32(0);
+                    userItem.item_name = reader.GetString(1);
+                    userItem.item_desc = reader.GetString(2);
+                    userItem.user_id = reader.GetInt32(3);
+                    userItem.borrower = reader.GetString(4);
+                    userItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                    userItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
                 }
                 var json = JsonConvert.SerializeObject(userItem);
                 return json.ToString();
@@ -241,6 +321,10 @@ namespace KeepThingsAPI.Controllers
             }
         }
         #endregion
+
+
+
+
         #region MarketplaceItem
         public String MarketplaceItem_getMarketplaceItem(int id)
         {
@@ -257,8 +341,8 @@ namespace KeepThingsAPI.Controllers
                 marketplaceItem.item_desc = reader.GetString(2);
                 marketplaceItem.user_id = reader.GetInt32(3);
                 marketplaceItem.borrower = reader.GetString(4);
-                marketplaceItem.date_from = reader.GetMySqlDateTime(5) + "";
-                marketplaceItem.date_to = reader.GetMySqlDateTime(6) + "";
+                marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
             }
             var json = JsonConvert.SerializeObject(marketplaceItem);
             cnn.Close();
@@ -281,8 +365,8 @@ namespace KeepThingsAPI.Controllers
                 marketplaceItem.item_desc = reader.GetString(2);
                 marketplaceItem.user_id = reader.GetInt32(3);
                 marketplaceItem.borrower = reader.GetString(4);
-                marketplaceItem.date_from = reader.GetMySqlDateTime(5) + "";
-                marketplaceItem.date_to = reader.GetMySqlDateTime(6) + "";
+                marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
                 marketplaceItems.Add(marketplaceItem);
             }
             var json = JsonConvert.SerializeObject(marketplaceItems);
@@ -309,8 +393,44 @@ namespace KeepThingsAPI.Controllers
                     marketplaceItem.item_desc = reader.GetString(2);
                     marketplaceItem.user_id = reader.GetInt32(3);
                     marketplaceItem.borrower = reader.GetString(4);
-                    marketplaceItem.date_from = reader.GetMySqlDateTime(5) + "";
-                    marketplaceItem.date_to = reader.GetMySqlDateTime(6) + "";
+                    marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                    marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
+                }
+                var json = JsonConvert.SerializeObject(marketplaceItem);
+                return json.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Error with execuing the insert: " + ex.Message;
+            }
+            finally
+            {
+                if (cnn.State == System.Data.ConnectionState.Open) cnn.Close();
+            }
+        }
+        public string MarketplaceItem_putMarketplaceItem(int id, MarketplaceItem marketplaceItem)
+        {
+            if (cnn == null) InitSqlConnection();
+            string query = "UPDATE marketplace_items " +
+                " SET item_name = '" + marketplaceItem.item_name + "',item_desc = '" + marketplaceItem.item_desc + "',owner = " + marketplaceItem.user_id + ",borrower = '" + marketplaceItem.borrower + "',date_from = '" + marketplaceItem.date_from + "',date_to = '" + marketplaceItem.date_to + "' " +
+                " WHERE id = " + id;
+            MySqlCommand command = new MySqlCommand(query, cnn);
+            cnn.Open();
+            try
+            {
+                command.ExecuteNonQuery();
+                command = new MySqlCommand("SELECT * FROM marketplace_items WHERE id = " + id, cnn);
+                marketplaceItem = new MarketplaceItem();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    marketplaceItem.id = reader.GetInt32(0);
+                    marketplaceItem.item_name = reader.GetString(1);
+                    marketplaceItem.item_desc = reader.GetString(2);
+                    marketplaceItem.user_id = reader.GetInt32(3);
+                    marketplaceItem.borrower = reader.GetString(4);
+                    marketplaceItem.date_from = reader.GetMySqlDateTime(5).Year + "-" + reader.GetMySqlDateTime(5).Month + "-" + reader.GetMySqlDateTime(5).Day;
+                    marketplaceItem.date_to = reader.GetMySqlDateTime(6).Year + "-" + reader.GetMySqlDateTime(6).Month + "-" + reader.GetMySqlDateTime(6).Day;
                 }
                 var json = JsonConvert.SerializeObject(marketplaceItem);
                 return json.ToString();
@@ -345,6 +465,10 @@ namespace KeepThingsAPI.Controllers
             }
         }
         #endregion
+
+
+
+
         #region Messages
         
         public String Message_getMessages(int chat_id)
@@ -362,7 +486,7 @@ namespace KeepThingsAPI.Controllers
                 message.chat_id = reader.GetInt32(1);
                 message.message = reader.GetString(2);
                 message.sender_id = reader.GetInt32(3);
-                message.timestamp = reader.GetString(4);
+                message.timestamp = reader.GetMySqlDateTime(4).Year + "-" + reader.GetMySqlDateTime(4).Month + "-" + reader.GetMySqlDateTime(4).Day + " " + reader.GetMySqlDateTime(4).Hour + ":" + reader.GetMySqlDateTime(4).Minute + ":" + reader.GetMySqlDateTime(4).Second;
                 messages.Add(message);
             }
             var json = JsonConvert.SerializeObject(messages);
@@ -388,7 +512,41 @@ namespace KeepThingsAPI.Controllers
                     message.chat_id = reader.GetInt32(1);
                     message.message = reader.GetString(2);
                     message.sender_id = reader.GetInt32(3);
-                    message.timestamp = reader.GetString(4);
+                    message.timestamp = reader.GetMySqlDateTime(4).Year + "-" + reader.GetMySqlDateTime(4).Month + "-" + reader.GetMySqlDateTime(4).Day + " " + reader.GetMySqlDateTime(4).Hour + ":" + reader.GetMySqlDateTime(4).Minute + ":" + reader.GetMySqlDateTime(4).Second;
+                }
+                var json = JsonConvert.SerializeObject(message);
+                return json.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Error with execuing the insert: " + ex.Message;
+            }
+            finally
+            {
+                if (cnn.State == System.Data.ConnectionState.Open) cnn.Close();
+            }
+        }
+        public string Message_putMessage(int id, Message message)
+        {
+            if (cnn == null) InitSqlConnection();
+            string query = "UPDATE messages " +
+                " SET chat_ID = " + message.chat_id + ",message = '" + message.message + "',sender_ID = " + message.sender_id + ", sent_timestamp = '" + message.timestamp + "'" + 
+                " WHERE id = " + id;
+            MySqlCommand command = new MySqlCommand(query, cnn);
+            cnn.Open();
+            try
+            {
+                command.ExecuteNonQuery();
+                command = new MySqlCommand("SELECT * FROM messages WHERE id = " + id, cnn);
+                message = new Message();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    message.id = reader.GetInt32(0);
+                    message.chat_id = reader.GetInt32(1);
+                    message.message = reader.GetString(2);
+                    message.sender_id = reader.GetInt32(3);
+                    message.timestamp = reader.GetMySqlDateTime(4).Year + "-" + reader.GetMySqlDateTime(4).Month + "-" + reader.GetMySqlDateTime(4).Day + " " + reader.GetMySqlDateTime(4).Hour + ":" + reader.GetMySqlDateTime(4).Minute + ":" + reader.GetMySqlDateTime(4).Second;
                 }
                 var json = JsonConvert.SerializeObject(message);
                 return json.ToString();
@@ -423,6 +581,10 @@ namespace KeepThingsAPI.Controllers
             }
         }
         #endregion
+
+
+
+
         #region Chat
 
         public String Chat_getChats(int id)
@@ -457,6 +619,39 @@ namespace KeepThingsAPI.Controllers
             {
                 command.ExecuteNonQuery();
                 command = new MySqlCommand("SELECT * FROM chat WHERE id = LAST_INSERT_ID()", cnn);
+                chat = new Chat();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    chat.id = reader.GetInt32(0);
+                    chat.sender_id = reader.GetInt32(1);
+                    chat.receiver_id = reader.GetInt32(2);
+                    chat.topic = reader.GetString(3);
+                }
+                var json = JsonConvert.SerializeObject(chat);
+                return json.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Error with execuing the insert: " + ex.Message;
+            }
+            finally
+            {
+                if (cnn.State == System.Data.ConnectionState.Open) cnn.Close();
+            }
+        }
+        public string Chat_putChat(int id, Chat chat)
+        {
+            if (cnn == null) InitSqlConnection();
+            string query = "UPDATE chat " +
+                " SET sender_ID = " + chat.sender_id + ",receiver_ID = " + chat.receiver_id + ",topic = '" + chat.topic + "' " +
+                " WHERE id = "+ id;
+            MySqlCommand command = new MySqlCommand(query, cnn);
+            cnn.Open();
+            try
+            {
+                command.ExecuteNonQuery();
+                command = new MySqlCommand("SELECT * FROM chat WHERE id = " + id, cnn);
                 chat = new Chat();
                 reader = command.ExecuteReader();
                 while (reader.Read())

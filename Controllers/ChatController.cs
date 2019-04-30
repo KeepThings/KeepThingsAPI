@@ -39,6 +39,11 @@ namespace KeepThingsAPI.Controllers
         {
             return sql.Chat_deleteChat(id);
         }
+        [HttpPut("{id}")]
+        public string PutChat(int id, Chat chat)
+        {
+            return sql.Chat_putChat(id, chat);
+        }
         // GET: api/<controller>
         //[HttpGet]
         //public IEnumerable<string> Get()
