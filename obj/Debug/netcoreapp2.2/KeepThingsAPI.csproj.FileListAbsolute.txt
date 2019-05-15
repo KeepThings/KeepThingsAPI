@@ -40,3 +40,6 @@ D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsA
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.RazorTargetAssemblyInfo.cache
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.dll
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.pdb
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll

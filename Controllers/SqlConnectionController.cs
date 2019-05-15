@@ -524,7 +524,7 @@ namespace KeepThingsAPI.Controllers
         {
             if (cnn == null) InitSqlConnection();
             string query = "INSERT INTO messages (chat_ID,message,sender_ID,sent_timestamp) " +
-                "VALUES (" + message.chat_id + ",'" + message.message + "'," + message.sender_id + ", sent_timestamp = " + message.timestamp + "); ";
+                "VALUES (" + message.chat_id + ",'" + message.message + "'," + message.sender_id + ", " + message.timestamp + "); ";
             MySqlCommand command = new MySqlCommand(query, cnn);
             cnn.Open();
             try
