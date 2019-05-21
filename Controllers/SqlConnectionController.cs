@@ -520,7 +520,7 @@ namespace KeepThingsAPI.Controllers
             cnn.Close();
             return json.ToString();
         }
-        public string Message_postMessages(Message message)
+        public string Message_postMessage(Message message)
         {
             if (cnn == null) InitSqlConnection();
             string query = "INSERT INTO messages (chat_ID,message,sender_ID,sent_timestamp) " +
@@ -596,7 +596,7 @@ namespace KeepThingsAPI.Controllers
             try
             {
                 command.ExecuteNonQuery();
-                return "doen";
+                return "done";
             }
             catch (Exception ex)
             {

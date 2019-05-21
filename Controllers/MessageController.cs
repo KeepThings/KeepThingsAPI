@@ -33,7 +33,7 @@ namespace KeepThingsAPI.Controllers
         [HttpPost]
         public string PostMessage(Message message)
         {
-            return sql.Message_postMessages(message);
+            return sql.Message_postMessage(message);
         }
         [HttpDelete("{id}")]
         public string DeleteMessage(int id)
