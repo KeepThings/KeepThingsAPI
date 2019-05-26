@@ -30,25 +30,15 @@ namespace KeepThingsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<KTDBContext>(opt => opt.UseInMemoryDatabase("DataList"));
-            /*
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-                        {
-                            options.TokenValidationParameters = new TokenValidationParameters
-                            {
-                                ValidateIssuer = true,
-                                ValidateAudience = true,
-                                ValidateIssuerSigningKey = true,
-                                ValidIssuer = "mysite.com",
-                                ValidAudience = "mysite.com",
-                                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"))
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<KTDBContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            else
+                services.AddDbContext<KTDBContext>(options =>
+                        options.UseInMemoryDatabase("DataList"));
 
-                            };
-                        });
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            */
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<KTDBContext>().Database.Migrate();
 
             services.AddAuthentication(options =>
             {
@@ -59,18 +49,6 @@ namespace KeepThingsAPI
                 options.Authority = "https://keepthings.eu.auth0.com/";
                 options.Audience = "https://localhost:5001/api/";
             });
-            /*
-            services.AddAuthorization(options =>
-            {
-                // Policy for admins (checks JWT-Token for role)
-                options.AddPolicy("admin", policy => policy.Requirements.Add(new HasScopeRequirement("admin", "https://keepthings.eu.auth0.com/")));
-
-            });
-*/
-            // register the scope authorization handler
-            //services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-            
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1); 
         }
 
