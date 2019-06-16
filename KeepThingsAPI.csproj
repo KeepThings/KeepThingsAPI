@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="KeepThingsAPITests\**" />
+    <Content Remove="KeepThingsAPITests\**" />
+    <EmbeddedResource Remove="KeepThingsAPITests\**" />
+    <None Remove="KeepThingsAPITests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.TestPlatform" Version="14.0.0" />

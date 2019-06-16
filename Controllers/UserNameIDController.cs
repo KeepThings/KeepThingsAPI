@@ -44,5 +44,17 @@ namespace KeepThingsAPI.Controllers
             }
             return userNameId;
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
+        {
+            //var user = await _context.Users.FindAsync(Auth_id);
+            List<User> user = _context.Users.ToList();
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user.Find(item => item.id == id);
+        }
     }
 }
