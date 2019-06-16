@@ -31,7 +31,6 @@ D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsA
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.runtimeconfig.dev.json
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.dll
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\KeepThingsAPI.pdb
-D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.csprojAssemblyReference.cache
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.csproj.CoreCompileInputs.cache
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.RazorAssemblyInfo.cache
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.RazorAssemblyInfo.cs
@@ -43,3 +42,4 @@ D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsA
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 D:\Dokumente\VisualCodePojects\KeepThingsAPI\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Debug\netcoreapp2.2\KeepThingsAPI.csprojAssemblyReference.cache

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Diese Datei wird vom Veröffentlichungs-/Paketierungsprozess Ihres Webprojekts verwendet. Sie können das Verhalten dieses Prozesses anpassen,
+indem Sie diese MSBuild-Datei bearbeiten. Weitere Informationen hierzu finden Sie unter https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAsUIEyVZcrUShrDC01cSo6QAAAAACAAAAAAAQZgAAAAEAACAAAABtca/iwyObLHyDaEiS+kvSWZIC4M+YNCJDfy8WQOBJFwAAAAAOgAAAAAIAACAAAACNkUMy/+SWrLsPIeUAeTmc1r6SgFv3jehEeKa9znWaXIAAAACHWgFbdELFXMldB4ng8I9lTQ+KdZNuvJU1Z/67qRG+CNoQLt8KfMKI3z/0nI37ezffB3UAGURG3SQznSk37NU8HPBCaCby4g3y7opHA/r/+qdyAzmTveICDoC19GAMTQxmQcE/lLp+YYXs3KJbaOTKd9R3dorOFpUetS9qJrbh8EAAAAAh7xwinHO17DC1rGfwo+F1uAJUNsLZc8iWAy7TMet4DYCQLYVrB6oekOMpvQLscWCa++OSLH1o+umle53HFETH</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="KeepThingsAPI.Models.KTDBContext">
+      <Value>Data Source=tcp:keepthingsapidbserver.database.windows.net,1433%3bInitial Catalog=KeepThingsAPI_db%3bUser Id=KeepThingsAdmin%40keepthingsapidbserver%3bPassword=KeepThings1337</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace KeepThingsAPITests
+{
+    public class TestData
+    {
+        public readonly String Auth0Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1rSkdOVU14UWtRNFJVSTJSREEwTmtRMlJrUkRPVEkwTWtJd05qZEVRalV4TVVVeE5VRTNSUSJ9.eyJpc3MiOiJodHRwczovL2tlZXB0aGluZ3MuZXUuYXV0aDAuY29tLyIsInN1YiI6IlNKT3gyeW5YNXVyY0xEdEZCNTRPaW5URjNvbUFMd1BRQGNsaWVudHMiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxL2FwaS8iLCJpYXQiOjE1NjA0MzY0NzcsImV4cCI6MTU2MzAyODQ3NywiYXpwIjoiU0pPeDJ5blg1dXJjTER0RkI1NE9pblRGM29tQUx3UFEiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMifQ.eahgGdI3ZewCzhxRSs3ulIGFgZ9P3uUtpKevyU2ryGPPMLjp-u6Kj_O9TWDcbPR7Kq_rhAO6ObcOfXHnQlIYH8J-1JPrbGvddTvhfBFvVTmRHWQHOhSCxhR-9f9gy3U27RCNY6fUawP3jssXH9MqJVKzDgqkLT0obVlo-EpSzuiIRw56MU4uCVdazBmQ0qEsYnAewHGESA-wkisNyLdApx5s4Fz3jIPQXvHM3dZadqqzjBwNYZ1-xFY2MrbxiTCoQt9wH1lIbLjW0XNwHQz_SC-OcWH0LiJonT3kYKcxjthKVLahif3DPnL2ZhzTCP33BplT5AGk6-uETAqb7h5jYg";
+        public readonly String HttpAdress = "https://keepthingsapi.azurewebsites.net/";
+    }
+}

@@ -1,0 +1,15 @@
+namespace KeepThingsAPITests.Models {
+    public class TestUser
+    {
+        public string Auth0_id { get; set; }
+        public string name { get; set; }
+        public string first_name { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+        public string tel_nr { get; set; }
+        public string username { get; set; }
+        public string type { get; set; }
+        public bool verified { get; set; }
+    }
+        
+}

@@ -30,15 +30,19 @@ namespace KeepThingsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-                services.AddDbContext<KTDBContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-            else
-                services.AddDbContext<KTDBContext>(options =>
-                        options.UseInMemoryDatabase("DataList"));
+            //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            //    services.AddDbContext<KTDBContext>(options =>
+            //            options.UseSqlServer("Server=tcp:keepthingsapidbserver.database.windows.net,1433;Initial Catalog=KeepThingsAPI_db;Persist Security Info=False;User ID=KeepThingsAdmin;Password=KeepThings1337;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
+            //else
+            //    services.AddDbContext<KTDBContext>(options =>
+            //            options.UseInMemoryDatabase("DataList"));
 
-            // Automatically perform database migration
-            services.BuildServiceProvider().GetService<KTDBContext>().Database.Migrate();
+            //// Automatically perform database migration
+            //services.BuildServiceProvider().GetService<KTDBContext>().Database.Migrate();
+            
+
+            services.AddDbContext<KTDBContext>(opt =>
+                opt.UseSqlServer("Server=tcp:keepthingsapidbserver.database.windows.net,1433;Initial Catalog=KeepThingsAPI_db;Persist Security Info=False;User ID=KeepThingsAdmin;Password=KeepThings1337;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"));
 
             services.AddAuthentication(options =>
             {

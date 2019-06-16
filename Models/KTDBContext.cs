@@ -9,10 +9,10 @@ namespace KeepThingsAPI.Models
         {
         }
 
-        public DbSet<MarketplaceItem> MarketplaceItems { get; set; }
+        public DbSet<MarketplaceItem> Marketplace_Items { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserItem> UserItems { get; set; }
+        public DbSet<UserItem> User_Items { get; set; }
         public DbSet<Chat> Chat { get; set; }
 
     }

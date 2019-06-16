@@ -1,0 +1,17 @@
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\NUnit3.TestAdapter.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\NUnit3.TestAdapter.pdb
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\nunit.engine.netstandard.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPITests.deps.json
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPITests.runtimeconfig.json
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPITests.runtimeconfig.dev.json
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPITests.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPITests.pdb
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPI.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\bin\Release\netcoreapp2.2\KeepThingsAPI.pdb
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.csprojAssemblyReference.cache
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.csproj.CoreCompileInputs.cache
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.AssemblyInfoInputs.cache
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.AssemblyInfo.cs
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.csproj.CopyComplete
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.dll
+D:\Dokumente\VisualCodePojects\KeepThingsAPI\KeepThingsAPITests\obj\Release\netcoreapp2.2\KeepThingsAPITests.pdb

@@ -8,101 +8,76 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KeepThingsAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MarketplaceItemController : ControllerBase
     {
         private readonly KTDBContext _context;
-        private SqlConnectionController sql = new SqlConnectionController();
+        //private SqlConnectionController sql = new SqlConnectionController();
 
         public MarketplaceItemController(KTDBContext context)
         {
             _context = context;
 
-            //if (_context.MarketplaceItems.Count() == 0)
+            //if (_context.Marketplace_Items.Count() == 0)
             //{
             //    _context.SaveChanges();
             //}
         }
         [HttpGet]
-        public string GetMarketplaceItems()
+        public async Task<ActionResult<IEnumerable<MarketplaceItem>>> GetMarketplaceItems()
         {
-            return sql.MarketplaceItem_getMarketplaceItems();
+            return await _context.Marketplace_Items.ToListAsync();
         }
+
         [HttpGet("{id}")]
-        public string GetMarketplaceItem(int id)
+        public async Task<ActionResult<MarketplaceItem>> GetMarketplaceItem(int id)
         {
-            return sql.MarketplaceItem_getMarketplaceItem(id);
+            var MarketplaceItem = await _context.Marketplace_Items.FindAsync(id);
+
+            if (MarketplaceItem == null)
+            {
+                return NotFound();
+            }
+
+            return MarketplaceItem;
         }
         [HttpPost]
-        public string PostMarketplaceItem(MarketplaceItem item)
+        public async Task<ActionResult<MarketplaceItem>> PostMarketplaceItem(MarketplaceItem marketplaceItem)
         {
-            return sql.MarketplaceItem_postMarketplaceItem(item);
-        }
-        [HttpDelete("{id}")]
-        public string DeleteMarketplaceItem(int id)
-        {
-            return sql.MarketplaceItem_deleteMarketplaceItem(id);
+            _context.Marketplace_Items.Add(marketplaceItem);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetMarketplaceItem), new { id = marketplaceItem.id }, marketplaceItem);
         }
         [HttpPut("{id}")]
-        public string PutMarketplaceItem(int id, MarketplaceItem marketplaceItem)
+        public async Task<IActionResult> PutMarketplaceItem(int id, MarketplaceItem marketplaceItem)
         {
-            return sql.MarketplaceItem_putMarketplaceItem(id, marketplaceItem);
+            if (id != marketplaceItem.id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(marketplaceItem).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<MarketplaceItem>>> GetMarketplaceItemss()
-        //{
-        //    return await _context.MarketplaceItems.ToListAsync();
-        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTodoItem(int id)
+        {
+            var marketplaceItem = await _context.Marketplace_Items.FindAsync(id);
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<MarketplaceItem>> GetMarketplaceItem(int id)
-        //{
-        //    var MarketplaceItem = await _context.MarketplaceItems.FindAsync(id);
+            if (marketplaceItem == null)
+            {
+                return NotFound();
+            }
 
-        //    if (MarketplaceItem == null)
-        //    {
-        //        return NotFound();
-        //    }
+            _context.Marketplace_Items.Remove(marketplaceItem);
+            await _context.SaveChangesAsync();
 
-        //    return MarketplaceItem;
-        //}
-        //[HttpPost]
-        //public async Task<ActionResult<MarketplaceItem>> PostMarketplaceItem(MarketplaceItem marketplaceItem)
-        //{
-        //    _context.MarketplaceItems.Add(marketplaceItem);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetMarketplaceItem), new { id = marketplaceItem.id }, marketplaceItem);
-        //}
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutMarketplaceItem(int id, MarketplaceItem marketplaceItem)
-        //{
-        //    if (id != marketplaceItem.id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(marketplaceItem).State = EntityState.Modified;
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTodoItem(int id)
-        //{
-        //    var marketplaceItem = await _context.MarketplaceItems.FindAsync(id);
-
-        //    if (marketplaceItem == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.MarketplaceItems.Remove(marketplaceItem);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
     }
 }

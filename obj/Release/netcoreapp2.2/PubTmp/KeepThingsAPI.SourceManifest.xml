@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Release\netcoreapp2.2\PubTmp\Out\" />
+  <dbfullsql path="D:\Dokumente\VisualCodePojects\KeepThingsAPI\obj\Release\netcoreapp2.2\PubTmp\EFSQLScripts\KeepThingsAPI.Models.KTDBContext.sql" />
+</sitemanifest>

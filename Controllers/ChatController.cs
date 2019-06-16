@@ -1,19 +1,21 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KeepThingsAPI.Models;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json.Linq;
 
 namespace KeepThingsAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ChatController : Controller
     {
         private readonly KTDBContext _context;
-        private SqlConnectionController sql = new SqlConnectionController();
+        //private SqlConnectionController sql = new SqlConnectionController();
         public ChatController(KTDBContext context)
         {
             _context = context;
@@ -23,57 +25,66 @@ namespace KeepThingsAPI.Controllers
             //    _context.SaveChanges();
             //}
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
+        {
+            return await _context.Chat.ToListAsync();
+        }
 
         [HttpGet("{id}")]
-        public string GetChat(int id)
+        public async Task<ActionResult<IEnumerable<Chat>>> GetChat(int id)
         {
-            return sql.Chat_getChats(id);
+            //var chat = await _context.Chat.FindAsync(id);
+            List<Chat> chat = _context.Chat.ToList();
+            List<Chat> result = new List<Chat>();
+            if (chat == null)
+            {
+                return NotFound();
+            }
+            foreach(Chat tempChat in chat)
+            {
+                if (tempChat.receiver_id == id || tempChat.sender_id == id) result.Add(tempChat);
+            }
+
+
+            return result;
         }
         [HttpPost]
-        public string PostChat(Chat chat)
+        public async Task<ActionResult<Chat>> PostChat(Chat chat)
         {
-            return sql.Chat_postChat(chat);
-        }
-        [HttpDelete("{id}")]
-        public string DeleteChat(int id)
-        {
-            return sql.Chat_deleteChat(id);
+
+            _context.Chat.Add(chat);
+            await _context.SaveChangesAsync();
+            var x = chat.id;
+            return CreatedAtAction(nameof(GetChat), new { id = chat.id }, chat);
         }
         [HttpPut("{id}")]
-        public string PutChat(int id, Chat chat)
+        public async Task<IActionResult> PutChat(int id, Chat chat)
         {
-            return sql.Chat_putChat(id, chat);
+            if (id != chat.id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(chat).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
-        // GET: api/<controller>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTodoItem(int id)
+        {
+            var chat = await _context.Chat.FindAsync(id);
 
-        //// GET api/<controller>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+            if (chat == null)
+            {
+                return NotFound();
+            }
 
-        //// POST api/<controller>
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
+            _context.Chat.Remove(chat);
+            await _context.SaveChangesAsync();
 
-        //// PUT api/<controller>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/<controller>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+            return NoContent();
+        }
     }
 }

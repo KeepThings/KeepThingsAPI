@@ -1,105 +1,199 @@
 ﻿using NUnit.Framework;
-using KeepThingsAPI.Controllers;
 using KeepThingsAPI.Models;
 using Newtonsoft.Json;
 using System;
 using NUnit.Framework.Interfaces;
+using KeepThingsAPITests.Models;
+using System.Net;
+using System.IO;
 using System.Collections.Generic;
 
 namespace KeepThingsAPITests
 {
     class MessageChatTest
     {
-        Message testMessage = new Message();
+        KeepThingsAPITests.Models.TestMessage testTestMessage = new KeepThingsAPITests.Models.TestMessage();
+        TestChat testTestChat = new TestChat();
         Chat testChat = new Chat();
-        SqlConnectionController sql = new SqlConnectionController();
         private bool stop;
+        Message testMessage;
+        HttpWebRequest httpWebRequest;
+        Boolean isinit = false;
+        TestData testData = new TestData();
         [SetUp]
         public void Setup()
         {
-            testChat.sender_id = 0;
-            testChat.receiver_id = 1;
-            testChat.topic = "This is a Test-Consversation-Chat";
-            testMessage.message = "Hello there, this is a Test-Message";
-            testMessage.sender_id = 0;
-            testMessage.timestamp = 123456789;
-
+            if (!isinit)
+            {
+                inittestTestMessage();
+            }
             if (stop)
             {
                 Assert.Inconclusive("Previous test failed");
             }
         }
-        #region ChatTest
-        [Test, Order(1)]
-        public void TestChatPost()
+        private void inittestTestMessage()
         {
-            String resultString = sql.Chat_postChat(testChat);
-            Chat resultChat = JsonConvert.DeserializeObject<Chat>(resultString);
-            Assert.AreEqual(testChat.sender_id, resultChat.sender_id);
-            Assert.AreEqual(testChat.receiver_id, resultChat.receiver_id);
-            Assert.AreEqual(testChat.topic, resultChat.topic);
-            testChat.id = resultChat.id;
-            testMessage.chat_id = testChat.id;
+            testTestChat.sender_id = 0;
+            testTestChat.receiver_id = 1;
+            testTestChat.topic = "This is a Test-Consversation-Chat";
+            testTestMessage.message = "Hello there, this is a Test-Message";
+            testTestMessage.sender_id = 0;
+            testTestMessage.sent_timestamp = 222222222;
+            isinit = true;
         }
-        [Test, Order(2)]
-        public void TestChatGetWithId()
+        private void initHttpWebRequestMessage(String optional)
         {
-            String resultString = sql.Chat_getChats(testChat.sender_id);
-            List<Chat> chats = JsonConvert.DeserializeObject<IEnumerable<Chat>>(resultString) as List<Chat>;
-            Assert.NotNull(chats.IndexOf(testChat));
+            httpWebRequest = (HttpWebRequest)WebRequest.Create(testData.HttpAdress + "api/message/" + optional);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.PreAuthenticate = true;
+            httpWebRequest.Headers.Add("Authorization", "Bearer " + testData.Auth0Token);
+
         }
-        [Test, Order(3)]
-        public void TestChatPut()
+        private void initHttpWebRequestChat(String optional)
         {
-            testChat.topic = "This is a Test-Consversation-Chat and this was changed";
-            String resultString = sql.Chat_putChat(testChat.id, testChat);
-            Chat resultChat = JsonConvert.DeserializeObject<Chat>(resultString);
-            Assert.AreEqual(testChat.sender_id, resultChat.sender_id);
-            Assert.AreEqual(testChat.receiver_id, resultChat.receiver_id);
-            Assert.AreEqual(testChat.topic, resultChat.topic);
+            httpWebRequest = (HttpWebRequest)WebRequest.Create(testData.HttpAdress + "api/chat/" + optional);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.PreAuthenticate = true;
+            httpWebRequest.Headers.Add("Authorization", "Bearer " + testData.Auth0Token);
+
         }
-        [Test, Order(8)]
-        public void TestChatDelete()
+        private void sendRequest(Object parObjectd)
         {
-            String result = sql.Chat_deleteChat(testChat.id);
-            Assert.AreEqual("done", result);
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                string json = JsonConvert.SerializeObject(parObjectd);
+                streamWriter.Write(json);
+            }
         }
-        #endregion
-        #region MessageTest
+        private Message GetResponseMessage()
+        {
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<Message>(result);
+            }
+        }
+        private Chat GetResponseChat()
+        {
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<Chat>(result);
+            }
+        }
+        private List<Chat> GetResponseChats()
+        {
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<IEnumerable<Chat>>(result) as List<Chat>;
+            }
+        }
+        private List<Message> GetResponseMessages()
+        {
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<IEnumerable<Message>>(result) as List<Message>;
+            }
+        }
         [Test, Order(4)]
         public void TestMessagePost()
         {
-            String resultString = sql.Message_postMessage(testMessage);
-            Message resultMessage = JsonConvert.DeserializeObject<Message>(resultString);
-            Assert.AreEqual(testMessage.message, resultMessage.message);
-            Assert.AreEqual(testMessage.sender_id, resultMessage.sender_id);
-            Assert.AreEqual(testMessage.timestamp, resultMessage.timestamp);
-            testMessage.id = resultMessage.id;
+            initHttpWebRequestMessage("");
+            httpWebRequest.Method = "POST";
+
+            sendRequest(testTestMessage);
+            testMessage = GetResponseMessage();
+
+            Assert.AreEqual(testTestMessage.message, testMessage.message);
+            Assert.AreEqual(testTestMessage.sender_id, testMessage.sender_id);
+            Assert.AreEqual(testTestMessage.sent_timestamp, testMessage.sent_timestamp);
         }
         [Test, Order(5)]
         public void TestMessageGetWithId()
         {
-            String resultString = sql.Message_getMessages(testMessage.chat_id);
-            List<Message> chats = JsonConvert.DeserializeObject<IEnumerable<Message>>(resultString) as List<Message>;
-            Assert.NotNull(chats.IndexOf(testMessage));
+            initHttpWebRequestMessage(testMessage.chat_id + "");
+            httpWebRequest.Method = "GET";
+
+            var resultChats = GetResponseMessages();
+
+            Assert.NotNull(resultChats.IndexOf(testMessage));
         }
         [Test, Order(6)]
         public void TestMessagePut()
         {
             testMessage.message = "Hello there, this is a Test-Message and is now changed";
-            String resultString = sql.Message_putMessage(testMessage.id, testMessage);
-            Message resultMessage = JsonConvert.DeserializeObject<Message>(resultString);
-            Assert.AreEqual(testMessage.message, resultMessage.message);
-            Assert.AreEqual(testMessage.sender_id, resultMessage.sender_id);
-            Assert.AreEqual(testMessage.timestamp, resultMessage.timestamp);
+
+            initHttpWebRequestMessage(testMessage.id + "");
+            httpWebRequest.Method = "PUT";
+
+            sendRequest(testMessage);
+
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Assert.AreEqual(HttpStatusCode.NoContent, myHttpWebResponse.StatusCode);
         }
         [Test, Order(7)]
         public void TestMessageDelete()
         {
-            String result = sql.Message_deleteMessage(testMessage.id);
-            Assert.AreEqual("done", result);
+            initHttpWebRequestMessage(testMessage.id + "");
+            httpWebRequest.Method = "DELETE";
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Assert.AreEqual(HttpStatusCode.NoContent, myHttpWebResponse.StatusCode);
+
         }
-        #endregion
+        [Test, Order(1)]
+        public void TestChatPostAsync()
+        {
+            initHttpWebRequestChat("");
+            httpWebRequest.Method = "POST";
+
+            sendRequest(testTestChat);
+
+            testChat = GetResponseChat();
+
+            Assert.AreEqual(testTestChat.sender_id, testChat.sender_id);
+            Assert.AreEqual(testTestChat.receiver_id, testChat.receiver_id);
+            Assert.AreEqual(testTestChat.topic, testChat.topic);
+        }
+        [Test, Order(2)]
+        public void TestChatGetWithId()
+        {
+            initHttpWebRequestChat(testChat.sender_id + "");
+            httpWebRequest.Method = "GET";
+
+            var resultChats = GetResponseChats();
+
+            Assert.NotNull(resultChats.IndexOf(testChat));
+        }
+        [Test, Order(3)]
+        public void TestChatPut()
+        {
+            testChat.topic = "This is a Test-Consversation-Chat and this was changed";
+
+            initHttpWebRequestChat(testChat.id + "");
+            httpWebRequest.Method = "PUT";
+
+            sendRequest(testChat);
+
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Assert.AreEqual(HttpStatusCode.NoContent, myHttpWebResponse.StatusCode);
+
+        }
+        [Test, Order(8)]
+        public void TestChatDelete()
+        {
+            initHttpWebRequestChat(testChat.id + "");
+            httpWebRequest.Method = "DELETE";
+            HttpWebResponse myHttpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Assert.AreEqual(HttpStatusCode.NoContent, myHttpWebResponse.StatusCode);
+
+        }
         [TearDown]
         public void TearDown()
         {

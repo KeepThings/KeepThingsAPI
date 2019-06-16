@@ -9,13 +9,13 @@ using Newtonsoft.Json.Linq;
 
 namespace KeepThingsAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private readonly KTDBContext _context;
-        private SqlConnectionController sql = new SqlConnectionController();
+        //private SqlConnectionController sql = new SqlConnectionController();
 
         public UserController(KTDBContext context)
         {
@@ -27,86 +27,62 @@ namespace KeepThingsAPI.Controllers
             //    _context.SaveChanges();
             //}
         }
-        
+
         [HttpGet]
-        public string GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return sql.User_getUsers();
+            return await _context.Users.ToListAsync();
         }
-        [HttpGet("{id}")]
-        public string GetUser(string id)
+
+        [HttpGet("{Auth_id}")]
+        public async Task<ActionResult<User>> GetUser(string Auth_id)
         {
-            return sql.User_getUser(id);
+            //var user = await _context.Users.FindAsync(Auth_id);
+            List<User> user = _context.Users.ToList();
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user.Find(item => item.Auth0_id == Auth_id);
         }
         [HttpPost]
-        public string PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-            return sql.User_postUser(user);
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            var x = user.id;
+            return CreatedAtAction(nameof(GetUser), new { Auth_id = user.Auth0_id }, user);
         }
-        [HttpDelete("{id}")]
-        public string DeleteUser(int id)
+        [HttpPut("{Auth_id}")]
+        public async Task<IActionResult> PutUser(string Auth_id, User user)
         {
-            return sql.User_deleteUser(id);
+            if (!Auth_id.Equals(user.Auth0_id))
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent(); // TODO return the User and correct http status(200)
         }
-        [HttpPut("{id}")]
-        public string PutUser(string id, User user)
+        [HttpDelete("{Auth_id}")]
+        public async Task<IActionResult> DeleteTodoItem(string Auth_id)
         {
-            return sql.User_putUser(id, user);
+            //var user = await _context.Users.FindAsync(Auth_id);
+            List<User> user = _context.Users.ToList();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _context.Users.Remove(user.Find(item => item.Auth0_id == Auth_id));
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        //{
-        //    return await _context.Users.ToListAsync();
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> GetUser(int id)
-        //{
-        //    var user = await _context.Users.FindAsync(id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return user;
-        //}
-        //[HttpPost]
-        //public async Task<ActionResult<User>> PostUser(User user)
-        //{
-
-        //    _context.Users.Add(user);
-        //    await _context.SaveChangesAsync();
-        //    var x = user.id;
-        //    return CreatedAtAction(nameof(GetUser), new { id = user.id }, user);
-        //}
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutUser(int id, User user)
-        //{
-        //    if (id != user.id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(user).State = EntityState.Modified;
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTodoItem(int id)
-        //{
-        //    var user = await _context.Users.FindAsync(id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Users.Remove(user);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
     }
 }
