@@ -1,17 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <ProjectGuid>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectGuid>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="KeepThingsAPITests\**" />
     <Content Remove="KeepThingsAPITests\**" />
     <EmbeddedResource Remove="KeepThingsAPITests\**" />
     <None Remove="KeepThingsAPITests\**" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -24,7 +22,6 @@
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="xunit" Version="2.2.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="Controllers\ValuesController.cs" />
   </ItemGroup>
